@@ -1,6 +1,8 @@
 #!/bin/bash
+aa="\033[1;37m"
 b="\033[1;36m"
 r="\033[1;91m"
+j="\033[0;33m"
 suffix="\033[0m"
 REPO="https://raw.githubusercontent.com/x-hunter12/x-hunter/main/"
 function lane() {
@@ -16,20 +18,20 @@ fun_bar() {
         touch $HOME/fim
     ) >/dev/null 2>&1 &
     tput civis
-    echo -ne "  \033[0;33mPlease Wait Loading \033[1;37m- \033[0;33m["
+    echo -ne "  ${j}Please Wait ${aa}- ${j}["
     while true; do
         for ((i = 0; i < 18; i++)); do
             echo -ne "\033[0;32m#"
             sleep 0.1s
         done
         [[ -e $HOME/fim ]] && rm $HOME/fim && break
-        echo -e "\033[0;33m]"
+        echo -e "${j}]"
         sleep 1s
         tput cuu1
         tput dl1
-        echo -ne "  \033[0;33mPlease Wait Loading \033[1;37m- \033[0;33m["
+        echo -ne "  ${j}Please Wait Loading ${aa}- ${j}["
     done
-    echo -e "\033[0;33m]\033[1;37m -\033[1;32m OK !\033[1;37m"
+    echo -e "${j}]${aa} -\033[1;32m Done !${aa}"
     tput cnorm
 }
 res1() {
