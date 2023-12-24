@@ -1,8 +1,11 @@
 #!/bin/bash
-dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
-red() { echo -e "\\033[32;1m${*}\\033[0m"; }
-clear
+b="\033[1;36m"
+r="\033[1;91m"
+suffix="\033[0m"
+REPO="https://raw.githubusercontent.com/x-hunter12/x-hunter/main/"
+function lane() {
+echo -e "${b}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${suffix}"
+}
 fun_bar() {
     CMD[0]="$1"
     CMD[1]="$2"
@@ -30,39 +33,46 @@ fun_bar() {
     tput cnorm
 }
 res1() {
-#wget -O menu.zip "https://vpn-store.sgpremium.biz.id:81/sc"
-unzip menu.zip
+wget -O sc.zip "${REPO}sc"
+unzip sc.zip
 chmod +x menu/*
 mv menu/* /usr/local/sbin
-rm -fr menu
-rm -fr menu.zip
-rm -fr update.sh
 
-#wget -O alt.zip "https://vpn-store.sgpremium.biz.id:81/alt"
+wget -O alt.zip "${REPO}alt"
 unzip alt.zip
 chmod +x all-t/*
 mv all-t/* /usr/bin
-rm -fr all-t
-rm -fr alt.zip
 
-rm -fr /usr/sbin/xdxl/style
+rm -fr /usr/sbin/xdxl
+mkdir -p /usr/sbin/xdxl
 mkdir -p /usr/sbin/xdxl/style
-#wget -O style.zip "https://vpn-store.sgpremium.biz.id:81/style.zip"
+wget -O style.zip "${REPO}style.zip"
 unzip style.zip
 chmod +x style/*
 mv style/* /usr/sbin/xdxl/style
+}
+
+exe() {
+rm -fr menu
+rm -fr menu.zip
+rm -fr up-x
+rm -fr update.sh
+rm -fr all-t
+rm -fr alt.zip
 rm -fr style
 rm -fr style.zip
 }
 netfilter-persistent
 clear
-echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e " \e[1;97;101m             UPDATE SCRIPT              \e[0m"
-echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+lane
+echo -e " \e[1;97;101m             UPDATE SCRIPT              ${suffix}"
+lane
 echo -e ""
-echo -e "  \033[1;91m update script service\033[1;37m"
+echo -e "  ${r} Downloading Files Update\033[1;37m"
 fun_bar 'res1'
-echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+echo -e "  ${r} Remove Files \033[1;37m"
+fun_bar 'exe'
+lane
 echo -e ""
 read -n 1 -s -r -p "Press [ Enter ] to back on menu"
 menu
