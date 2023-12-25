@@ -70,9 +70,9 @@ lane
 echo -e " \e[1;97;101m             UPDATE SCRIPT              ${suffix}"
 lane
 echo -e ""
-echo -e "  ${r} Downloading Files Update\033[1;37m"
+echo "  ${r} Downloading Files Update\033[1;37m"
 fun_bar 'res1'
-echo -e "  ${r} Remove Files \033[1;37m"
+echo "  ${r} Remove Files \033[1;37m"
 fun_bar 'exe'
 lane
 echo -e ""
