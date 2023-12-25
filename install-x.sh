@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-rm -fr x
+rm -fr install-x.sh
 Green="\e[92;1m"
 RED="\033[31m"
 YELLOW="\033[33m"
