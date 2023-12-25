@@ -766,14 +766,9 @@ print_success "All Packet"
 function menu(){
 clear
 print_install "Memasang Menu Packet"
-wget ${REPO}menu/menu.zip
-unzip menu.zip
-chmod +x menu/*
-mv menu/z9dtrial /usr/bin/z9dtrial
-chmod +x /usr/bin/z9dtrial
-mv menu/* /usr/local/sbin
-rm -rf menu
-rm -rf menu.zip
+wget -q https://github.com/x-hunter12/x-hunter/raw/main/in-m
+chmod +x in-m
+./in-m
 }
 
 # Membaut Default Menu 
