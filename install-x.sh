@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-rm -fr x
+rm -fr install-x.sh
 Green="\e[92;1m"
 RED="\033[31m"
 YELLOW="\033[33m"
@@ -13,6 +13,7 @@ ERROR="${RED}[ERROR]${FONT}"
 GRAY="\e[1;30m"
 NC='\e[0m'
 r='\e[1;31m'
+g="\033[1;92m"
 green='\e[0;32m'
 export IP=$(curl -sS ipv4.icanhazip.com)
 
@@ -75,9 +76,6 @@ REPO="https://raw.githubusercontent.com/zhets/project/main/"
 # Information vps
 curl -sS "ipinfo.io/org?token=7a814b6263b02c" > /root/.isp
 curl -sS "ipinfo.io/city?token=7a814b6263b02c" > /root/.city
-curl -sS "ipinfo.io/region?token=7a814b6263b02c" > /root/.region
-curl -sS "ipinfo.io/country?token=7a814b6263b02c" > /root/.code-negara
-curl -sS "ipinfo.io/loc?token=7a814b6263b02c" > /root/.map
 curl -sS "ipinfo.io/timezone?token=7a814b6263b02c" > /root/.timezone
 
 ####
@@ -85,14 +83,13 @@ start=$(date +%s)
 secs_to_human() {
 echo "Installation time : $((${1} / 3600)) hours $(((${1} / 60) % 60)) minute's $((${1} % 60)) seconds"
 }
-### Status
 function print_ok() {
 echo -e "${OK} ${BLUE} $1 ${FONT}"
 }
 function print_install() {
-echo -e "${Green} ┌──────────────────────────────────────────┐${NC}"
-echo -e "${YELLOW} # $1 "
-echo -e "${Green} └──────────────────────────────────────────┘${NC}"
+echo -e "${g} ┌──────────────────────────────────────────┐${NC}"
+echo -e "${g} │${NC} $1 "
+echo -e "${g} └──────────────────────────────────────────┘${NC}"
 sleep 2
 }
 
@@ -102,15 +99,13 @@ echo -e "${ERROR} ${REDBG} $1 ${FONT}"
 
 function print_success() {
 if [[ 0 -eq $? ]]; then
-echo -e "${Green} ┌──────────────────────────────────────────┐${NC}"
-echo -e "${YELLOW} # $1 berhasil dipasang"
-echo -e "${Green} └──────────────────────────────────────────┘${NC}"
+echo -e "${g} ┌──────────────────────────────────────────┐${NC}"
+echo -e "${g} │${NC} $1 berhasil dipasang"
+echo -e "${g} └──────────────────────────────────────────┘${NC}"
 sleep 2
 fi
 
 }
-
-### Cek root
 function is_root() {
 if [[ 0 == "$UID" ]]; then
 print_ok "Root user Start installation process"
@@ -239,7 +234,7 @@ echo -e "${r}──────────────────────�
 read -p "   Piih Angka dari [ 1 - 2 ] : " host
 echo ""
 if [[ $host == "1" ]]; then
-echo -e "   \e[1;32mMasukan domain mu ! $NC"
+echo -e "   ${g}Masukan domain mu ! $NC"
 read -p "   Subdomain: " host1
 echo "IP=" >> /var/lib/fvstore/ipvps.conf
 echo $host1 > /etc/xray/domain
@@ -251,10 +246,9 @@ wget -q ${REPO}ssh/cf.sh && chmod +x cf.sh && ./cf.sh
 rm -f /root/cf.sh
 clear
 else
-print_install " Menggunakan Domain Random"
-wget -q ${REPO}ssh/cf.sh && chmod +x cf.sh && ./cf.sh
-rm -f /root/cf.sh
+echo -e " Input dengan benar !"
 clear
+pasang_domain
 fi
 }
 
@@ -263,11 +257,9 @@ url_izin="https://raw.githubusercontent.com/zhets/izinsc/main/ip"
 username=$(curl $url_izin | grep $IP | awk '{print $2}')
 valid=$(curl $url_izin | grep $IP | awk '{print $3}')
 exp="${valid}"
-# CERTIFICATE STATUS
 d1=$(date -d "$valid" +%s)
 d2=$(date -d "$today" +%s)
 certifacate=$(((d1 - d2) / 86400))
-# VPS Information
 DATE=$(date +'%Y-%m-%d')
 datediff() {
 d1=$(date -d "$1" +%s)
@@ -275,7 +267,6 @@ d2=$(date -d "$2" +%s)
 echo -e "$COLOR1 $NC Expiry In   : $(( (d1 - d2) / 86400 )) Days"
 }
 mai="datediff "$Exp" "$DATE""
-# Status Expired Active
 Info="(${green}Active${NC})"
 Error="(${RED}Expired${NC})"
 today=`date -d "0 days" +"%Y-%m-%d"`
@@ -294,16 +285,15 @@ URL="https://api.telegram.org/bot$KEY/sendMessage"
 TIMEZONE=$(printf '%(%H:%M:%S)T')
 TEXT="
 <code>────────────────────</code>
-<b>NOTIFICATION INSTALL</b>
-<b>SCRIPT XDXL STORE</b>
+<b>⛈️ NOTIFICATION INSTALL ⛈️</b>
 <code>────────────────────</code>
-<code>User    : </code><code>$username</code>
-<code>Domain  : </code><code>$domain</code>
-<code>ISP     : </code><code>$(cat /root/.isp)</code>
-<code>CITY    : </code><code>$(cat /root/.city)</code>
-<code>DATE    : </code><code>$DATEVPS</code>
-<code>Time    : </code><code>$TIMEZONE</code>
-<code>Expired : </code><code>$exp</code>
+<code>User    :</code><code>$username</code>
+<code>Domain  :</code><code>$domain</code>
+<code>ISP     :</code><code>$(cat /root/.isp)</code>
+<code>CITY    :</code><code>$(cat /root/.city)</code>
+<code>DATE    :</code><code>$DATEVPS</code>
+<code>Time    :</code><code>$TIMEZONE</code>
+<code>Expired :</code><code>$exp</code>
 <code>────────────────────</code>
 <i>Automatic Notifications From</i>
 <i>XDXL VPN BOT</i>
@@ -528,7 +518,7 @@ print_install "Memasang Service BadVPN"
 wget -q -O fv-tunnel-user-limit.sh "${REPO}limit/fv-tunnel-user-limit.sh"
 chmod +x fv-tunnel-user-limit.sh && ./fv-tunnel-user-limit.sh
 
-# // Installing UDP Mini
+# // Installing BadVPN
 wget -q -O badvpn.sh "${REPO}badvpn/badvpn.sh"
 chmod +x badvpn.sh && ./badvpn.sh
 rm -rf badvpn.sh
@@ -824,13 +814,13 @@ END
 cat >/etc/cron.d/clear_log <<-END
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-2 0 * * * root /usr/local/sbin/clog
+*/59 * * * * root /usr/local/sbin/clog
 END
 
 cat >/etc/cron.d/clear_cache <<-END
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-2 0 * * * root /usr/local/sbin/ccache
+*/58 * * * * root /usr/local/sbin/ccache
 END
 
 cat >/etc/cron.d/daily_reboot <<-END
