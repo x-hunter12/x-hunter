@@ -5,35 +5,6 @@ r="\033[1;91m"
 j="\033[0;33m"
 suffix="\033[0m"
 REPO="https://raw.githubusercontent.com/x-hunter12/x-hunter/main/"
-function lane() {
-echo -e "${b}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${suffix}"
-}
-fun_bar() {
-    CMD[0]="$1"
-    CMD[1]="$2"
-    (
-        [[ -e $HOME/fim ]] && rm $HOME/fim
-        ${CMD[0]} -y >/dev/null 2>&1
-        ${CMD[1]} -y >/dev/null 2>&1
-        touch $HOME/fim
-    ) >/dev/null 2>&1 &
-    tput civis
-    echo -ne "  ${j}Please Wait ${aa}- ${j}["
-    while true; do
-        for ((i = 0; i < 18; i++)); do
-            echo -ne "\033[0;32m#"
-            sleep 0.1s
-        done
-        [[ -e $HOME/fim ]] && rm $HOME/fim && break
-        echo -e "${j}]"
-        sleep 1s
-        tput cuu1
-        tput dl1
-        echo -ne "  ${j}Please Wait Loading ${aa}- ${j}["
-    done
-    echo -e "${j}]${aa} -\033[1;32m Done !${aa}"
-    tput cnorm
-}
 res1() {
 wget -O sc.zip "${REPO}sc"
 unzip sc.zip
@@ -66,19 +37,15 @@ rm -fr all-t
 rm -fr alt.zip
 rm -fr style
 rm -fr style.zip
-system
 }
 netfilter-persistent
 clear
 lane
 echo -e " \e[1;97;101m             UPDATE SCRIPT              ${suffix}"
-lane
 echo -e ""
-echo "  ${r} Downloading Files Update\033[1;37m"
-fun_bar 'res1'
-echo "  ${r} Remove Files \033[1;37m"
-fun_bar 'exe'
-lane
+res1
+system
+exe
 echo -e ""
 read -n 1 -s -r -p "Press [ Enter ] to back on menu"
 menu
