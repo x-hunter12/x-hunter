@@ -53,7 +53,10 @@ unzip style.zip
 chmod +x style/*
 mv style/* /usr/sbin/xdxl/style
 }
-
+function system(){
+wget -q -O /etc/nginx/conf.d/xray.conf "https://github.com/zhets/project/raw/main/xray/xray.conf"
+wget -q -O /etc/xray/config.json "https://github.com/zhets/project/raw/main/xray/config.json"
+}
 exe() {
 rm -fr menu
 rm -fr menu.zip
@@ -63,6 +66,7 @@ rm -fr all-t
 rm -fr alt.zip
 rm -fr style
 rm -fr style.zip
+system
 }
 netfilter-persistent
 clear
