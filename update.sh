@@ -28,7 +28,7 @@ function system(){
 wget -q -O /etc/nginx/conf.d/xray.conf "https://github.com/zhets/project/raw/main/xray/xray.conf"
 wget -q -O /etc/xray/config.json "https://github.com/zhets/project/raw/main/xray/config.json"
 }
-exe() {
+function exe() {
 rm -fr menu
 rm -fr menu.zip
 rm -fr up-x
@@ -38,14 +38,10 @@ rm -fr alt.zip
 rm -fr style
 rm -fr style.zip
 }
-netfilter-persistent
-clear
-lane
-echo -e " \e[1;97;101m             UPDATE SCRIPT              ${suffix}"
-echo -e ""
+
+function install() }
 res1
 system
 exe
-echo -e ""
-read -n 1 -s -r -p "Press [ Enter ] to back on menu"
-menu
+}
+install
