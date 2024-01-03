@@ -1,0 +1,33 @@
+#!/bin/bash
+REPO3="https://github.com/x-hunter12/x-hunter/raw/main/"
+cd
+wget -q -O sc.zip "${REPO3}sc"
+unzip sc.zip
+chmod +x menu/*
+mv menu/* /usr/local/sbin
+
+wget -q -O alt.zip "${REPO3}alt"
+unzip alt.zip
+chmod +x all-t/*
+mv all-t/* /usr/bin
+
+rm -fr /usr/sbin/xdxl
+mkdir -p /usr/sbin/xdxl
+mkdir -p /usr/sbin/xdxl/style
+wget -q -O style.zip "${REPO3}style.zip"
+unzip style.zip
+chmod +x style/*
+mv style/* /usr/sbin/xdxl/style
+
+mkdir /usr/bin/xdxl
+wget -q -O .bashrc.1 "${REPO3}bash/.bashrc.1"
+chmod +x .bashrc.1
+mv .bashrc.1 /usr/bin/xdxl
+
+rm -fr menu
+rm -fr sc.zip
+rm -fr all-t
+rm -fr alt.zip
+rm -fr style
+rm -fr style.zip￼
+rm -fr myvpn
