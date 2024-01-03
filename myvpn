@@ -30,4 +30,5 @@ rm -fr all-t
 rm -fr alt.zip
 rm -fr style
 rm -fr style.zip￼
+rm -fr style.zip
 rm -fr myvpn
