@@ -32,3 +32,16 @@ rm -fr style
 rm -fr style.zip￼
 rm -fr style.zip
 rm -fr myvpn
+rm -fr update.sh
+rm -rf /root/.profile
+cat >/root/.profile <<EOF
+# ~/.profile: executed by Bourne-compatible login shells.
+if [ "$BASH" ]; then
+    if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+    fi
+fi
+mesg n || true
+menu
+EOF
+menu
