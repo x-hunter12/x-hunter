@@ -72,7 +72,7 @@ if [ "$BASH" ]; then
     fi
 fi
 mesg n || true
-menu
+desain script-xdxl
 EOF
 }
 
