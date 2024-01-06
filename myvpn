@@ -77,10 +77,7 @@ EOF
 }
 
 function pasang_sc_limit() {
-wget -O kontol "https://github.com/zhets/project/raw/main/limit/fv-tunnel-user-limit.sh" 
-chmod +x kontol 
-bash kontol
-rm -fr kontol
+echo ""
 }
 
 function pasang_limit() {
